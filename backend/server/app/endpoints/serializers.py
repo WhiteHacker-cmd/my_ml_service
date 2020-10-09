@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Endpoint
 from .models import MLAlgorithm
 from .models import MLAlgorithmStatus
-from .models import MLRequest
+from .models import MLRequest, ABTest
 
 
 class EndpointSerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class EndpointSerializer(serializers.ModelSerializer):
 
 
 class MLAlgorithmSerializer(serializers.ModelSerializer):
-    current_status = serializers.ModelSerializer(read_only=True)
+    current_status = serializers.SerializerMethodField(read_only=True)
 
     def get_current_status(self, malgorithm):
         return MLAlgorithmStatus.objects.filter(parent_mlalgorithm=malgorithm).latest('created_at').status
@@ -58,4 +58,26 @@ class MLRequestSerializer(serializers.ModelSerializer):
             "feedback",
             "created_at",
             "parent_mlalgorithm",
+        )
+
+
+class ABTestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ABTest
+        read_only_fields = (
+            "id",
+            "ended_at",
+            "created_at",
+            "summary",
+        )
+
+        fields = (
+             "id",
+            "title",
+            "created_by",
+            "created_at",
+            "ended_at",
+            "summary",
+            "parent_mlalgorithm_1",
+            "parent_mlalgorithm_2",
         )
