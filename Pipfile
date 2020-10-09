@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+
+[packages]
+django = "==2.2.4"
+jupyter = "*"
+notebook = "*"
+numpy = "*"
+pandas = "*"
+sklearn = "*"
+joblib = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+
+[requires]
+python_version = "3.8"
